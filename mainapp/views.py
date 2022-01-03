@@ -1,7 +1,9 @@
 import json
-from django.shortcuts import render
-from .models import Product, ProductCategory
+
 from django.conf import settings
+from django.shortcuts import render
+
+from .models import Product, ProductCategory
 
 
 def main(request):
@@ -24,15 +26,15 @@ def products(request):
         "same_products": same_products,
         "media_url": settings.MEDIA_URL,
     }
-    
+
     return render(request, "mainapp/products.html", content)
 
 
 def contact(request):
     title = "о нас"
-    
-    with open('mainapp/data_json/contact_info.json', 'r') as file_with_contact_info:
-        locations = json.loads(file_with_contact_info.read())['locations']
 
-    content = {"title": title,  "locations": locations}
+    with open("mainapp/data_json/contact_info.json", "r") as file_with_contact_info:
+        locations = json.loads(file_with_contact_info.read())["locations"]
+
+    content = {"title": title, "locations": locations}
     return render(request, "mainapp/contact.html", content)

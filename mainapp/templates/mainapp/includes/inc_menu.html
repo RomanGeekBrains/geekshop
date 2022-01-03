@@ -4,7 +4,7 @@
         Дата/время: {% now 'jS F Y H:i' %}
     </li>
     <li>
-        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'main' %}active{% endif %}">
+        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">
             домой
         </a>
     </li>

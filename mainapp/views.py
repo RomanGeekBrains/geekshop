@@ -1,15 +1,14 @@
-import json
-
 from django.conf import settings
 from django.shortcuts import render
+from django.utils import timezone
 
-from .models import Product, ProductCategory
+from .models import Contact, Product, ProductCategory
 
 
 def main(request):
-    title = "домашняя"
+    title = "главная"
 
-    products = Product.objects.all()
+    products = Product.objects.all()[:5]
 
     content = {"title": title, "products": products, "media_url": settings.MEDIA_URL}
     return render(request, "mainapp/index.html", content)
@@ -32,9 +31,7 @@ def products(request, pk=None):
 
 def contact(request):
     title = "о нас"
-
-    with open("mainapp/data_json/contact_info.json", "r") as file_with_contact_info:
-        locations = json.loads(file_with_contact_info.read())["locations"]
-
-    content = {"title": title, "locations": locations}
+    visit_date = timezone.now()
+    locations = Contact.objects.all()
+    content = {"title": title, "visit_date": visit_date, "locations": locations}
     return render(request, "mainapp/contact.html", content)

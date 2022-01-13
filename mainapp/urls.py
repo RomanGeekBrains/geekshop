@@ -20,8 +20,6 @@
 #     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-
-
 from django.urls import path
 
 import mainapp.views as mainapp

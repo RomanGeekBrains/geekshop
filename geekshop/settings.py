@@ -41,14 +41,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "mainapp.apps.MainappConfig",
-    'authnapp.apps.AuthnappConfig'
-    
+    "authnapp.apps.AuthnappConfig",
 ]
 
 
-
 # Auth model
-AUTH_USER_MODEL = 'authnapp.ShopUser'
+AUTH_USER_MODEL = "authnapp.ShopUser"
 
 
 MIDDLEWARE = [

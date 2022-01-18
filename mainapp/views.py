@@ -1,22 +1,40 @@
+import re
+from urllib import request
+
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 
+from basketapp.models import Basket
+
 from .models import Contact, Product, ProductCategory
 
 
-def main(request):
+def main(request, pk=None, quantity_of_prods_in_basket=None, cart_total=None):
     title = "главная"
-
     products = Product.objects.all()[:4]
-
-    content = {"title": title, "products": products, "media_url": settings.MEDIA_URL}
+    content = {
+        "title": title,
+        "products": products,
+        "media_url": settings.MEDIA_URL,
+    }
     return render(request, "mainapp/index.html", content)
 
 
-def products(request, pk=None):
+def products(request, pk=None, quantity_of_prods_in_basket=None, cart_total=None):
     title = "продукты"
     links_menu = ProductCategory.objects.all()
+    basket = []
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+        # arr = {i:{basket[i].quantity: basket[i].product.price * basket[i].quantity} for i in range(len(basket))}
+        quantity_of_prods_in_basket = sum([basket[i].quantity for i in range(len(basket))])
+        cart_total = sum([basket[i].product.price * basket[i].quantity for i in range(len(basket))])
+
+        # or you can use this
+        # _basket = request.user.basket.all()
+        # print(f'basket / _basket: {len(_basket)} / {len(basket)}')
+
     if pk is not None:
         if pk == 0:
             products = Product.objects.all().order_by("price")
@@ -30,6 +48,9 @@ def products(request, pk=None):
             "category": category,
             "products": products,
             "media_url": settings.MEDIA_URL,
+            "basket": basket,
+            "quantity_of_prods_in_basket": quantity_of_prods_in_basket,
+            "cart_total": cart_total,
         }
         return render(request, "mainapp/products_list.html", content)
     same_products = Product.objects.all()
@@ -38,9 +59,14 @@ def products(request, pk=None):
         "links_menu": links_menu,
         "same_products": same_products,
         "media_url": settings.MEDIA_URL,
+        "same_products": same_products,
+        "basket": basket,
+        "quantity_of_prods_in_basket": quantity_of_prods_in_basket,
+        "cart_total": cart_total,
     }
     if pk:
         print(f"User select category: {pk}")
+
     return render(request, "mainapp/products.html", content)
 
 

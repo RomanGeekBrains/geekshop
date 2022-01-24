@@ -143,5 +143,5 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Set login path:
-#   https://docs.djangoproject.com/en/2.2/ref/settings/#login-url
+#   https://docs.djangoproject.com/en/3.2/ref/settings/#login-url
 LOGIN_URL = "authnapp:login"

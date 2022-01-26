@@ -33,7 +33,19 @@ jQuery(document).ready(function () {
             $.ajax({
                 url: "/basket/edit/" + target_href.name + "/" + target_href.value + "/",
                 success: function (data) {
-                    $('.basket_list').html(data.result);
+                    console.log(data);
+                    $('.basket_summary').html(`В корзине ${data['total_quantity']} товаров общей стоимостью ${data['total_cost']} руб`);
+                    //эксперемнты и записки 
+                    // for (let key in data){
+                    //     console.log(key);
+                    //     console.log(data[key])
+                    // }
+                    // var l = Object.keys(data).length
+                    // for(;l > 0; l--){
+                    //     console.log(l);
+                    //     console.log(data[1])
+                    // }
+                    // $('.product_cost').html(`Всего ${data['Basket object (30)']}&nbspруб за {{ item.product_quantity }} шт`)
                     console.log('ajax done');
                 },
             });

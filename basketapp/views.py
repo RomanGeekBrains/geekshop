@@ -56,6 +56,11 @@ def basket_edit(request, pk, quantity):
 
         content = {"basket_items": basket_items, "media_url": settings.MEDIA_URL}
 
-        result = render_to_string("basketapp/includes/inc_basket_list.html", content)
+        dictionary_for_ajax = {'total_quantity': content["basket_items"][0].total_quantity, 'total_cost': content["basket_items"][0].total_cost}
+        for i in range(len(content["basket_items"])):
+            dictionary_for_ajax.setdefault(content["basket_items"][i].__str__(), content["basket_items"][i].product_cost)
+        print(dictionary_for_ajax)
 
-        return JsonResponse({"result": result})
+        # result = render_to_string("basketapp/includes/inc_basket_list.html", content)
+
+        return JsonResponse(dictionary_for_ajax)

@@ -125,9 +125,10 @@ def category_delete(request, pk):
 
     category = get_object_or_404(ProductCategory, pk=pk)
 
-    if request.method == "POST":
-        category.is_active = False
-        category.save()
+    if request.method == "GET":
+        print(ProductCategory.objects.all())
+        ProductCategory.objects.filter(pk=pk).delete()
+        print(ProductCategory.objects.all())
         return HttpResponseRedirect(reverse("admin:categories"))
 
     content = {"title": title, "category_to_delete": category, "media_url": settings.MEDIA_URL}

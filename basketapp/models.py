@@ -13,10 +13,6 @@ class Basket(models.Model):
     add_datetime = models.DateTimeField(verbose_name="время добавления", auto_now_add=True)
 
     @property
-    def product_quantity(self):
-        return self.quantity
-
-    @property
     def product_cost(self):
         "return cost of all products this type"
         return self.product.price * self.quantity

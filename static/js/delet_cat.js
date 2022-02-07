@@ -5,7 +5,7 @@ $(document).ready(function () {
         if (target_href) {
             $.ajax({
                 url: `/admin/categories/delete/${target_href.id}/`,
-                // type: "POST",
+                type: "POST",
                 // success: function (data) {
                 //     console.log('ajax done');                   
                 // },

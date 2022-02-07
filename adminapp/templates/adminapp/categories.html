@@ -19,9 +19,12 @@
             <button>
                 <a href={% url 'admin:category_update' object.pk %}>редактировать</a>
             </button>
-            <button id={{ object.pk }} class="delete"> DELETE
-                <!-- <a href={% url 'admin:category_delete' object.pk %}>удалить</a> -->
-            </button>
+            <form action="{% url 'admin:category_delete' object.pk %}" method="post">
+                {% csrf_token %}
+                <button id={{ object.pk }} class="delete"> DELETE
+                    <!-- <a href={% url 'admin:category_delete' object.pk %}>удалить</a> -->
+                </button>
+            </form>
         </div>
         <div class="category_desc">
             {{ object.description|title }}

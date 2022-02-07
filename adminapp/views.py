@@ -125,7 +125,7 @@ def category_delete(request, pk):
 
     category = get_object_or_404(ProductCategory, pk=pk)
 
-    if request.method == "GET":
+    if request.method == "POST":
         print(ProductCategory.objects.all())
         ProductCategory.objects.filter(pk=pk).delete()
         print(ProductCategory.objects.all())

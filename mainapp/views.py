@@ -1,17 +1,16 @@
 import random
-from django.urls import reverse, reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.views.generic.list import ListView
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
+from django.views.generic.list import ListView
 
 from basketapp.models import Basket
 
 from .models import Contact, Product, ProductCategory
-
 
 # def main(request):
 #     title = "главная"
@@ -113,5 +112,4 @@ class Contact(ListView):
     queryset = Contact.objects.all()
     template_name = "mainapp/contact.html"
     context_object_name = "locations"
-    extra_context = {"title": "о нас", "visit_date" : timezone.now()}
-    
+    extra_context = {"title": "о нас", "visit_date": timezone.now()}

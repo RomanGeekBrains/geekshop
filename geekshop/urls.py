@@ -31,6 +31,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 import mainapp.views as mainapp
+
 # from mainapp.views import *
 
 urlpatterns = [

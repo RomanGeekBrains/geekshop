@@ -1,6 +1,7 @@
 from django.urls import path
 
 import mainapp.views as mainapp
+# from mainapp.views import *
 
 from .apps import MainappConfig
 

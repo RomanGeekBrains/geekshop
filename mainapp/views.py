@@ -1,5 +1,8 @@
 import random
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.views.generic.list import ListView
 from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, render
@@ -10,11 +13,18 @@ from basketapp.models import Basket
 from .models import Contact, Product, ProductCategory
 
 
-def main(request):
-    title = "главная"
-    products = Product.objects.filter(is_active=True, category__is_active=True)[:3]
-    content = {"title": title, "products": products, "media_url": settings.MEDIA_URL}
-    return render(request, "mainapp/index.html", content)
+# def main(request):
+#     title = "главная"
+#     products = Product.objects.filter(is_active=True, category__is_active=True)[:3]
+#     content = {"title": title, "products": products, "media_url": settings.MEDIA_URL}
+#     return render(request, "mainapp/index.html", content)
+
+
+class MainPage(ListView):
+    queryset = Product.objects.filter(is_active=True, category__is_active=True)[:3]
+    template_name = "mainapp/index.html"
+    context_object_name = "products"
+    extra_context = {"title": "главная", "media_url": settings.MEDIA_URL}
 
 
 def get_basket(user):
@@ -91,9 +101,17 @@ def product(request, pk):
     return render(request, "mainapp/product.html", content)
 
 
-def contact(request):
-    title = "о нас"
-    visit_date = timezone.now()
-    locations = Contact.objects.all()
-    content = {"title": title, "visit_date": visit_date, "locations": locations}
-    return render(request, "mainapp/contact.html", content)
+# def contact(request):
+#     title = "о нас"
+#     visit_date = timezone.now()
+#     locations = Contact.objects.all()
+#     content = {"title": title, "visit_date": visit_date, "locations": locations}
+#     return render(request, "mainapp/contact.html", content)
+
+
+class Contact(ListView):
+    queryset = Contact.objects.all()
+    template_name = "mainapp/contact.html"
+    context_object_name = "locations"
+    extra_context = {"title": "о нас", "visit_date" : timezone.now()}
+    

@@ -43,7 +43,15 @@ def basket_remove(request, pk):
 @login_required
 def basket_edit(request, pk, quantity):
     if request.is_ajax():
-        print(f"{pk} - {quantity}")
+
+        try:
+            pk = int(pk)
+            quantity = int(quantity)
+        except Exception as exp:
+            print(f"Wrong input numbers! {exp}")
+            raise exp
+
+        # print(f"{pk} - {quantity}")
         new_basket_item = Basket.objects.get(pk=int(pk))
 
         if quantity > 0:
@@ -64,7 +72,7 @@ def basket_edit(request, pk, quantity):
             dictionary_for_ajax.setdefault(
                 content["basket_items"][i].__str__(), content["basket_items"][i].product_cost
             )
-        print(dictionary_for_ajax)
+        # print(dictionary_for_ajax)
 
         # result = render_to_string("basketapp/includes/inc_basket_list.html", content)
 
